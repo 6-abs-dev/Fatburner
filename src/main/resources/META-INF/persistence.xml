@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+       version="2.2">
+    <persistence-unit name="fatburner" transaction-type="RESOURCE_LOCAL">
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/fatburner" />
+            <property name="jakarta.persistence.jdbc.user" value="root" />
+            <property name="jakarta.persistence.jdbc.password" value="qwerty" />
+            <property name="eclipselink.ddl-generation" value="create-update" />
+        </properties>
+<!--        <jta-data-source>java:comp/env/jdbc/mewis</jta-data-source>-->
+    </persistence-unit>
+</persistence>
