@@ -17,24 +17,38 @@ public class UserInputRepositoryImpl implements UserInputRepository {
         this.entityManager = Persistence.createEntityManagerFactory("fatburner").createEntityManager();
     }
 
+    @Override
+    public ProductEntity getProductById(String id) {
+        return this.entityManager.find(ProductEntity.class, id);
+    }
 
     @Override
-    public ProductDTO saveNewInput(ProductDTO productDTO) {
+    public ProductEntity getProductByName(String productName) {
+        return this.entityManager.createQuery("SELECT p FROM ProductEntity p WHERE p.productName = :productName", ProductEntity.class)
+                .setParameter("productName", productName)
+                .getSingleResult();
+    }
 
-        ProductEntity productEntity = entityManager.merge(ProductEntity.builder()
+    @Override
+    public ProductEntity createNewProduct(ProductDTO productDTO) {
+        return this.entityManager.merge(ProductEntity.builder()
                 .productName(productDTO.getProductName())
                 .ccal(productDTO.getCcal())
                 .protein(productDTO.getProtein())
-                .fat(productDTO.getFat())
                 .carbs(productDTO.getCarb())
+                .fat(productDTO.getFat())
                 .build());
+    }
 
-        return ProductDTO.builder()
-                .productName(productEntity.getProductName())
-                .ccal(productDTO.getCcal())
-                .protein(productEntity.getProtein())
-                .fat(productEntity.getFat())
-                .carb(productEntity.getCarbs())
-                .build();
+    @Override
+    public ProductEntity updateProduct(ProductDTO productDTO) {
+
+    }
+
+    @Override
+    public ProductEntity deleteProduct(String id) {
+        ProductEntity productEntity = this.getProductById(id);
+        entityManager.remove(productEntity);
+        return productEntity;
     }
 }

@@ -1,7 +1,7 @@
 package dev.abs.six.controller;
 
 import dev.abs.six.model.ProductDTO;
-import dev.abs.six.service.UserInputServiceImpl;
+import dev.abs.six.service.UserInputService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 public class UserInputController {
 
     @Inject
-    UserInputServiceImpl userInputService;
+    UserInputService userInputService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

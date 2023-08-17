@@ -1,7 +1,7 @@
 package dev.abs.six.controller;
 
 import dev.abs.six.model.ProductDTO;
-import dev.abs.six.service.UserInputServiceImpl;
+import dev.abs.six.service.UserInputService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -11,35 +11,35 @@ import javax.ws.rs.core.MediaType;
 public class ProductController {
 
     @Inject
-    UserInputServiceImpl userInputService;
+    UserInputService userInputService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public ProductDTO getProductById(String id) {
-        return userInputService.getTest();
+        return userInputService.getProductById(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public ProductDTO getProductByName(String productName) {
-        return userInputService.getTest();
+        return userInputService.getProductByName(productName);
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO createNewProduct() {
-        return userInputService.getTest();
+    public ProductDTO createNewProduct(ProductDTO productDTO) {
+        return userInputService.createNewProduct(productDTO);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO updateProduct() {
-        return userInputService.getTest();
+    public ProductDTO updateProduct(ProductDTO productDTO) {
+        return userInputService.updateProduct(productDTO);
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO deleteProduct() {
-        return userInputService.getTest();
+    public ProductDTO deleteProduct(String id) {
+        return userInputService.deleteProduct(id);
     }
 }
