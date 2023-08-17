@@ -11,5 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class ProductDTO {
-    String name;
+    String productName;
+    int ccal;
+    int protein;
+    int fat;
+    int carb;
 }

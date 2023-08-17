@@ -1,11 +1,13 @@
 package dev.abs.six.repository.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -14,9 +16,14 @@ import javax.persistence.*;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long productId;
 
     @Column
-    private String name;
+    private String productName;
+
+    private int ccal;
+    private int protein;
+    private int fat;
+    private int carbs;
 }

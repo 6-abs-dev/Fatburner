@@ -2,31 +2,39 @@ package dev.abs.six.repository;
 
 import dev.abs.six.model.ProductDTO;
 import dev.abs.six.repository.entity.ProductEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@AllArgsConstructor
+@Data
 public class UserInputRepositoryImpl implements UserInputRepository {
 
-//    @PersistenceUnit(unitName = "fatburner")
-//    private EntityManagerFactory entityManagerFactory;
+    EntityManager entityManager;
 
-//    @PersistenceContext(unitName = "fatburner")
-//    private EntityManager entityManager;
+    public UserInputRepositoryImpl() {
+        this.entityManager = Persistence.createEntityManagerFactory("fatburner").createEntityManager();
+    }
 
-
-    EntityManager entityManager = Persistence.createEntityManagerFactory("fatburner").createEntityManager();
 
     @Override
-    public ProductDTO getTest() {
+    public ProductDTO saveNewInput(ProductDTO productDTO) {
 
-//        ProductEntity merge = entityManagerFactory.createEntityManager().merge(new ProductEntity(1L, "oat"));
-
-
-
-        ProductEntity merge = entityManager.merge(new ProductEntity(2L, "oat2"));
+        ProductEntity productEntity = entityManager.merge(ProductEntity.builder()
+                .productName(productDTO.getProductName())
+                .ccal(productDTO.getCcal())
+                .protein(productDTO.getProtein())
+                .fat(productDTO.getFat())
+                .carbs(productDTO.getCarb())
+                .build());
 
         return ProductDTO.builder()
-                .name(merge.getName())
+                .productName(productEntity.getProductName())
+                .ccal(productDTO.getCcal())
+                .protein(productEntity.getProtein())
+                .fat(productEntity.getFat())
+                .carb(productEntity.getCarbs())
                 .build();
     }
 }

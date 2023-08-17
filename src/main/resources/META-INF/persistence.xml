@@ -11,7 +11,8 @@
             <property name="jakarta.persistence.jdbc.user" value="root" />
             <property name="jakarta.persistence.jdbc.password" value="qwerty" />
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="javax.persistence.logging.level" value="INFO" />
         </properties>
-<!--        <jta-data-source>java:comp/env/jdbc/mewis</jta-data-source>-->
     </persistence-unit>
 </persistence>

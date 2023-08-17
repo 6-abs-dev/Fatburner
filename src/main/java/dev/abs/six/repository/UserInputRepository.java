@@ -3,5 +3,5 @@ package dev.abs.six.repository;
 import dev.abs.six.model.ProductDTO;
 
 public interface UserInputRepository {
-    ProductDTO getTest();
+    ProductDTO saveNewInput(ProductDTO productDTO);
 }
