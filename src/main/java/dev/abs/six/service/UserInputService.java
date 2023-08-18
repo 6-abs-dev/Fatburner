@@ -5,6 +5,8 @@ import dev.abs.six.model.ProductDTO;
 import dev.abs.six.repository.UserInputRepository;
 import dev.abs.six.repository.UserInputRepositoryImpl;
 
+import java.util.List;
+
 public class UserInputService {
     private final UserInputRepository userInputRepository = new UserInputRepositoryImpl();
 
@@ -30,6 +32,26 @@ public class UserInputService {
 
     public ProductDTO deleteProduct(String id) {
         userInputRepository.deleteProduct(id);
+        return null;
+    }
+
+    public ProductDTO getListForSpecificDay(String date) {
+        return null;
+    }
+
+    public ProductDTO getListForPeriod() {
+        return null;
+    }
+
+    public ProductDTO putProduct(ProductDTO productDTO) {
+        return null;
+    }
+
+    public ProductDTO putProductBatch(List<ProductDTO> listOfProducts) {
+        return null;
+    }
+
+    public ProductDTO updateDailyList(List<ProductDTO> listOfProducts) {
         return null;
     }
 }

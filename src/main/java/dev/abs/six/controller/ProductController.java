@@ -21,7 +21,7 @@ public class ProductController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO getProductByName(String productName) {
+    public ProductDTO getProductByName(@QueryParam(value = "productName") String productName) {
         return userInputService.getProductByName(productName);
     }
 

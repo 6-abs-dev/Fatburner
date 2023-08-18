@@ -42,7 +42,12 @@ public class UserInputRepositoryImpl implements UserInputRepository {
 
     @Override
     public ProductEntity updateProduct(ProductDTO productDTO) {
-
+        ProductEntity productEntity = this.getProductByName(productDTO.getProductName());
+        productEntity.setCarbs(productDTO.getCarb());
+        productEntity.setFat(productEntity.getFat());
+        productEntity.setProtein(productDTO.getProtein());
+        productEntity.setCcal(productEntity.getCcal());
+        return entityManager.merge(productEntity);
     }
 
     @Override

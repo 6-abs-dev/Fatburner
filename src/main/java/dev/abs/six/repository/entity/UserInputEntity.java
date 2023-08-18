@@ -24,6 +24,6 @@ public class UserInputEntity {
 
     private String userName;
     private LocalDate date;
-    private List<ProductEntity> products;
+//    private List<ProductEntity> products;
 
 }
