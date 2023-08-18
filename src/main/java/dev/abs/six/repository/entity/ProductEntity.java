@@ -21,9 +21,12 @@ public class ProductEntity {
 
     @Column
     private String productName;
-
-    private int ccal;
-    private int protein;
-    private int fat;
-    private int carbs;
+    @Column
+    private Double calories;
+    @Column
+    private Double protein;
+    @Column
+    private Double fat;
+    @Column
+    private Double carb;
 }

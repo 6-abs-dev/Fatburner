@@ -14,8 +14,9 @@ public class ProductController {
     UserInputService userInputService;
 
     @GET
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO getProductById(String id) {
+    public ProductDTO getProductById(@PathParam("id") Long id) {
         return userInputService.getProductById(id);
     }
 
@@ -38,8 +39,9 @@ public class ProductController {
     }
 
     @DELETE
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ProductDTO deleteProduct(String id) {
+    public ProductDTO deleteProduct(@PathParam(value = "id") Long id) {
         return userInputService.deleteProduct(id);
     }
 }

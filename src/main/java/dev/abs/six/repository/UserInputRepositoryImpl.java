@@ -18,7 +18,7 @@ public class UserInputRepositoryImpl implements UserInputRepository {
     }
 
     @Override
-    public ProductEntity getProductById(String id) {
+    public ProductEntity getProductById(Long id) {
         return this.entityManager.find(ProductEntity.class, id);
     }
 
@@ -31,27 +31,31 @@ public class UserInputRepositoryImpl implements UserInputRepository {
 
     @Override
     public ProductEntity createNewProduct(ProductDTO productDTO) {
-        return this.entityManager.merge(ProductEntity.builder()
+        this.entityManager.getTransaction().begin();
+        ProductEntity productEntity = this.entityManager.merge(ProductEntity.builder()
                 .productName(productDTO.getProductName())
-                .ccal(productDTO.getCcal())
+                .calories(productDTO.getCalories())
                 .protein(productDTO.getProtein())
-                .carbs(productDTO.getCarb())
+                .carb(productDTO.getCarb())
                 .fat(productDTO.getFat())
                 .build());
+        this.entityManager.getTransaction().commit();
+        return productEntity;
+
     }
 
     @Override
     public ProductEntity updateProduct(ProductDTO productDTO) {
         ProductEntity productEntity = this.getProductByName(productDTO.getProductName());
-        productEntity.setCarbs(productDTO.getCarb());
+        productEntity.setCarb(productDTO.getCarb());
         productEntity.setFat(productEntity.getFat());
         productEntity.setProtein(productDTO.getProtein());
-        productEntity.setCcal(productEntity.getCcal());
+        productEntity.setCalories(productEntity.getCalories());
         return entityManager.merge(productEntity);
     }
 
     @Override
-    public ProductEntity deleteProduct(String id) {
+    public ProductEntity deleteProduct(Long id) {
         ProductEntity productEntity = this.getProductById(id);
         entityManager.remove(productEntity);
         return productEntity;

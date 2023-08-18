@@ -4,35 +4,33 @@ package dev.abs.six.service;
 import dev.abs.six.model.ProductDTO;
 import dev.abs.six.repository.UserInputRepository;
 import dev.abs.six.repository.UserInputRepositoryImpl;
+import dev.abs.six.repository.entity.ProductEntity;
 
 import java.util.List;
 
 public class UserInputService {
     private final UserInputRepository userInputRepository = new UserInputRepositoryImpl();
 
-    public ProductDTO getProductById(String id) {
-        userInputRepository.getProductById(id);
-        return null;
+    public ProductDTO getProductById(Long id) {
+        return productEntityToProductDTO(userInputRepository.getProductById(id));
     }
 
     public ProductDTO getProductByName(String productName) {
-        userInputRepository.getProductByName(productName);
-        return null;
+        return productEntityToProductDTO(userInputRepository.getProductByName(productName));
     }
 
     public ProductDTO createNewProduct(ProductDTO productDTO) {
-        userInputRepository.createNewProduct(productDTO);
-        return null;
+        return productEntityToProductDTO(userInputRepository.createNewProduct(productDTO));
     }
+
+
 
     public ProductDTO updateProduct(ProductDTO productDTO) {
-        userInputRepository.updateProduct(productDTO);
-        return null;
+        return productEntityToProductDTO(userInputRepository.updateProduct(productDTO));
     }
 
-    public ProductDTO deleteProduct(String id) {
-        userInputRepository.deleteProduct(id);
-        return null;
+    public ProductDTO deleteProduct(Long id) {
+        return productEntityToProductDTO(userInputRepository.deleteProduct(id));
     }
 
     public ProductDTO getListForSpecificDay(String date) {
@@ -53,5 +51,16 @@ public class UserInputService {
 
     public ProductDTO updateDailyList(List<ProductDTO> listOfProducts) {
         return null;
+    }
+
+    private static ProductDTO productEntityToProductDTO(ProductEntity product) {
+        return ProductDTO.builder()
+                .productId(product.getProductId())
+                .productName(product.getProductName())
+                .calories(product.getCalories())
+                .protein(product.getProtein())
+                .fat(product.getFat())
+                .carb(product.getCarb())
+                .build();
     }
 }

@@ -5,7 +5,7 @@ import dev.abs.six.repository.entity.ProductEntity;
 
 public interface UserInputRepository {
 
-    ProductEntity getProductById(String id);
+    ProductEntity getProductById(Long id);
 
     ProductEntity getProductByName(String productName);
 
@@ -13,5 +13,5 @@ public interface UserInputRepository {
 
     ProductEntity updateProduct(ProductDTO productDTO);
 
-    ProductEntity deleteProduct(String id);
+    ProductEntity deleteProduct(Long id);
 }

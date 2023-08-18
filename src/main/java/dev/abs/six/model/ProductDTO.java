@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class ProductDTO {
+    Long productId;
     String productName;
-    int ccal;
-    int protein;
-    int fat;
-    int carb;
+    Double calories;
+    Double protein;
+    Double fat;
+    Double carb;
 }
