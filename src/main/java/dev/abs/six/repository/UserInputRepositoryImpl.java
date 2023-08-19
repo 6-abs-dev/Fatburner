@@ -1,11 +1,18 @@
 package dev.abs.six.repository;
 
 import dev.abs.six.model.ProductDTO;
+import dev.abs.six.model.SingleProductInputDTO;
+import dev.abs.six.model.UserInputDTO;
 import dev.abs.six.repository.entity.ProductEntity;
+import dev.abs.six.repository.entity.SingleProductInputEntity;
+import dev.abs.six.repository.entity.UserInputEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Data
@@ -59,5 +66,33 @@ public class UserInputRepositoryImpl implements UserInputRepository {
         ProductEntity productEntity = this.getProductById(id);
         entityManager.remove(productEntity);
         return productEntity;
+    }
+
+    @Override
+    public UserInputEntity putInputProduct(UserInputDTO userInputDTO) {
+
+        List<SingleProductInputDTO> productInputsList = userInputDTO.getProductInputList();
+
+        long inputId = 15;
+
+        entityManager.getTransaction().begin();
+        List<SingleProductInputEntity> singleProductInputEntities = productInputsList.stream()
+                .map(singleProductInputDTO -> entityManager.merge(SingleProductInputEntity.builder()
+                        .productId(singleProductInputDTO.getProductId())
+                        .inputId(inputId)
+                        .measure(singleProductInputDTO.getMeasure())
+                        .quantity(singleProductInputDTO.getQuantity())
+                        .build()))
+                .collect(Collectors.toList());
+
+        UserInputEntity userInputEntity = entityManager.merge(UserInputEntity.builder()
+                .id(inputId)
+                .userName("Maksim")
+                .date(userInputDTO.getTimeOfInput())
+                .products(singleProductInputEntities)
+                .build());
+
+        entityManager.getTransaction().commit();
+        return userInputEntity;
     }
 }

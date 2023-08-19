@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,10 +18,14 @@ import java.util.List;
 public class UserInputEntity {
 
     @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String userName;
     private LocalDate date;
-//    private List<ProductEntity> products;
+
+    @OneToMany(mappedBy = "inputId", cascade = CascadeType.REMOVE) //здесь указывается поле обьекта а не базы данных
+    private List<SingleProductInputEntity> products;
+
 
 }

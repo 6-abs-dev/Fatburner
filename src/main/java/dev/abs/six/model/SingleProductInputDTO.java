@@ -5,18 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.List;
-
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class UserInputDTO {
+public class SingleProductInputDTO {
 
-    private LocalDate timeOfInput;
-
-    private List<SingleProductInputDTO> productInputList;
+    private Long productId;
+    private double quantity;
+    //TODO make enum
+    private String measure;
 
 }

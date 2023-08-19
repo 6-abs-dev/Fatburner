@@ -2,11 +2,15 @@ package dev.abs.six.service;
 
 
 import dev.abs.six.model.ProductDTO;
+import dev.abs.six.model.SingleProductInputDTO;
+import dev.abs.six.model.UserInputDTO;
 import dev.abs.six.repository.UserInputRepository;
 import dev.abs.six.repository.UserInputRepositoryImpl;
 import dev.abs.six.repository.entity.ProductEntity;
+import dev.abs.six.repository.entity.UserInputEntity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserInputService {
     private final UserInputRepository userInputRepository = new UserInputRepositoryImpl();
@@ -33,25 +37,7 @@ public class UserInputService {
         return productEntityToProductDTO(userInputRepository.deleteProduct(id));
     }
 
-    public ProductDTO getListForSpecificDay(String date) {
-        return null;
-    }
 
-    public ProductDTO getListForPeriod() {
-        return null;
-    }
-
-    public ProductDTO putProduct(ProductDTO productDTO) {
-        return null;
-    }
-
-    public ProductDTO putProductBatch(List<ProductDTO> listOfProducts) {
-        return null;
-    }
-
-    public ProductDTO updateDailyList(List<ProductDTO> listOfProducts) {
-        return null;
-    }
 
     private static ProductDTO productEntityToProductDTO(ProductEntity product) {
         return ProductDTO.builder()
@@ -61,6 +47,26 @@ public class UserInputService {
                 .protein(product.getProtein())
                 .fat(product.getFat())
                 .carb(product.getCarb())
+                .build();
+    }
+
+    //User inputs
+    public UserInputDTO getListForSpecificDay(String date) {
+        return null;
+    }
+
+    public UserInputDTO putInputProduct(UserInputDTO userInputDTO) {
+        UserInputEntity userInputEntity = userInputRepository.putInputProduct(userInputDTO);
+
+        return UserInputDTO.builder()
+                .timeOfInput(userInputEntity.getDate())
+                .productInputList(userInputEntity.getProducts().stream()
+                        .map(singleProductInputEntity -> SingleProductInputDTO.builder()
+                                .productId(singleProductInputEntity.getProductId())
+                                .measure(singleProductInputEntity.getMeasure())
+                                .quantity(singleProductInputEntity.getQuantity())
+                                .build())
+                        .collect(Collectors.toList()))
                 .build();
     }
 }
