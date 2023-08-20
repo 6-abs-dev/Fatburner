@@ -5,15 +5,21 @@ import dev.abs.six.model.ProductDTO;
 import dev.abs.six.model.SingleProductInputDTO;
 import dev.abs.six.model.UserInputDTO;
 import dev.abs.six.repository.UserInputRepository;
-import dev.abs.six.repository.UserInputRepositoryImpl;
 import dev.abs.six.repository.entity.ProductEntity;
 import dev.abs.six.repository.entity.UserInputEntity;
 
-import java.util.List;
+import javax.inject.Inject;
 import java.util.stream.Collectors;
 
 public class UserInputService {
-    private final UserInputRepository userInputRepository = new UserInputRepositoryImpl();
+
+
+    private UserInputRepository userInputRepository;
+
+    @Inject
+    public UserInputService(UserInputRepository userInputRepository) {
+        this.userInputRepository = userInputRepository;
+    }
 
     public ProductDTO getProductById(Long id) {
         return productEntityToProductDTO(userInputRepository.getProductById(id));
