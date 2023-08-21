@@ -7,19 +7,19 @@ import dev.abs.six.model.UserInputDTO;
 import dev.abs.six.repository.UserInputRepository;
 import dev.abs.six.repository.entity.ProductEntity;
 import dev.abs.six.repository.entity.UserInputEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.inject.Inject;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class UserInputService {
-
-
-    private UserInputRepository userInputRepository;
-
     @Inject
-    public UserInputService(UserInputRepository userInputRepository) {
-        this.userInputRepository = userInputRepository;
-    }
+    private UserInputRepository userInputRepository;
 
     public ProductDTO getProductById(Long id) {
         return productEntityToProductDTO(userInputRepository.getProductById(id));
