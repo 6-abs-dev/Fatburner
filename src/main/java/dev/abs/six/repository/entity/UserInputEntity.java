@@ -15,14 +15,16 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "user_input")
+@IdClass(UserInputId.class)
 public class UserInputEntity {
-
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String userName;
     private LocalDate date;
+    @Id
+    private String userName;
+
+    //TODO change to UUID
+    @Column(name = "input_id")
+    private String inputId;
 
     @OneToMany(mappedBy = "inputId", cascade = CascadeType.REMOVE) //здесь указывается поле обьекта а не базы данных
     private List<SingleProductInputEntity> products;
