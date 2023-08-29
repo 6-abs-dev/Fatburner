@@ -58,7 +58,7 @@ public class UserInputService {
 
     //User inputs
     public UserInputDTO getListForSpecificDay(String date) {
-        return null;
+        return new UserInputDTO();
     }
 
     public UserInputDTO putInputProduct(UserInputDTO userInputDTO) {
