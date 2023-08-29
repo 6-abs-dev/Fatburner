@@ -17,11 +17,13 @@ import java.time.LocalDate;
 public class SingleProductInputEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long productId;
+
     @Column(name = "input_id")
-    private Long inputId;
+    private String inputId;
+
+    private Long productId;
+    //TODO change to UUID
     private double quantity;
     //TODO make enum
     private String measure = "gram";

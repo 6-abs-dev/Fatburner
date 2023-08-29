@@ -12,6 +12,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -73,7 +74,7 @@ public class UserInputRepositoryImpl implements UserInputRepository {
 
         List<SingleProductInputDTO> productInputsList = userInputDTO.getProductInputList();
 
-        long inputId = 15;
+        String inputId = UUID.randomUUID().toString();
 
         entityManager.getTransaction().begin();
         List<SingleProductInputEntity> singleProductInputEntities = productInputsList.stream()
@@ -86,13 +87,23 @@ public class UserInputRepositoryImpl implements UserInputRepository {
                 .collect(Collectors.toList());
 
         UserInputEntity userInputEntity = entityManager.merge(UserInputEntity.builder()
-                .id(inputId)
-                .userName("Maksim")
+                .inputId(inputId)
+                .userName("maksim")
                 .date(userInputDTO.getTimeOfInput())
                 .products(singleProductInputEntities)
                 .build());
 
         entityManager.getTransaction().commit();
         return userInputEntity;
+    }
+
+    @Override
+    public UserInputEntity getInputByDate(String date) {
+        //TODO refactor
+        String userName = "Maksim";
+        return entityManager.createQuery("SELECT uie FROM UserInputEntity uie WHERE uie.date = :date AND uie.userName = :userName", UserInputEntity.class)
+                .setParameter("date", date)
+                .setParameter("userName", userName)
+                .getSingleResult();
     }
 }

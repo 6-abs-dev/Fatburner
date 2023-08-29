@@ -18,4 +18,6 @@ public interface UserInputRepository {
     ProductEntity deleteProduct(Long id);
 
     UserInputEntity putInputProduct(UserInputDTO userInputDTO);
+
+    UserInputEntity getInputByDate(String date);
 }

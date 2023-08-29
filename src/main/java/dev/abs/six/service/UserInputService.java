@@ -58,6 +58,8 @@ public class UserInputService {
 
     //User inputs
     public UserInputDTO getListForSpecificDay(String date) {
+        userInputRepository.getInputByDate(date);
+
         return new UserInputDTO();
     }
 
@@ -66,12 +68,14 @@ public class UserInputService {
 
         return UserInputDTO.builder()
                 .timeOfInput(userInputEntity.getDate())
-                .productInputList(userInputEntity.getProducts().stream()
+                .productInputList(
+                        userInputEntity.getProducts().stream()
                         .map(singleProductInputEntity -> SingleProductInputDTO.builder()
                                 .productId(singleProductInputEntity.getProductId())
                                 .measure(singleProductInputEntity.getMeasure())
                                 .quantity(singleProductInputEntity.getQuantity())
-                                .build())
+                                .build()
+                        )
                         .collect(Collectors.toList()))
                 .build();
     }
