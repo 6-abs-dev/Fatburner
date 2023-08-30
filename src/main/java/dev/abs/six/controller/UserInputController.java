@@ -3,7 +3,6 @@ package dev.abs.six.controller;
 
 import dev.abs.six.model.UserInputDTO;
 import dev.abs.six.service.UserInputService;
-import org.apache.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @Path("/fatburner/user_input")
 public class UserInputController {
-    private Logger logger = Logger.getLogger(this.getClass());
+//    private Logger logger = Logger.getLogger(this.getClass());
     @Inject
     UserInputService userInputService;
 
@@ -22,7 +21,7 @@ public class UserInputController {
     @Path("/{date}")
     @Produces(MediaType.APPLICATION_JSON)
     public UserInputDTO getListForSpecificDay(@PathParam("date") String date) {
-        logger.info(">>>request from getUserInput");
+//        logger.info(">>>request from getUserInput");
         //TODO make users support;
         String userName;
         return userInputService.getListForSpecificDay(date);

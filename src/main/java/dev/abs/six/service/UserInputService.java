@@ -34,7 +34,6 @@ public class UserInputService {
     }
 
 
-
     public ProductDTO updateProduct(ProductDTO productDTO) {
         return productEntityToProductDTO(userInputRepository.updateProduct(productDTO));
     }
@@ -42,7 +41,6 @@ public class UserInputService {
     public ProductDTO deleteProduct(Long id) {
         return productEntityToProductDTO(userInputRepository.deleteProduct(id));
     }
-
 
 
     private static ProductDTO productEntityToProductDTO(ProductEntity product) {
@@ -58,9 +56,18 @@ public class UserInputService {
 
     //User inputs
     public UserInputDTO getListForSpecificDay(String date) {
-        userInputRepository.getInputByDate(date);
+        UserInputEntity userInputEntity = userInputRepository.getInputByDate(date);
 
-        return new UserInputDTO();
+        return UserInputDTO.builder()
+                .timeOfInput(userInputEntity.getDate())
+                .productInputList(userInputEntity.getProducts().stream()
+                        .map(singleProductInputEntity -> SingleProductInputDTO.builder()
+                                .productId(singleProductInputEntity.getProductId())
+                                .measure(singleProductInputEntity.getMeasure())
+                                .quantity(singleProductInputEntity.getQuantity())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     public UserInputDTO putInputProduct(UserInputDTO userInputDTO) {
@@ -70,13 +77,13 @@ public class UserInputService {
                 .timeOfInput(userInputEntity.getDate())
                 .productInputList(
                         userInputEntity.getProducts().stream()
-                        .map(singleProductInputEntity -> SingleProductInputDTO.builder()
-                                .productId(singleProductInputEntity.getProductId())
-                                .measure(singleProductInputEntity.getMeasure())
-                                .quantity(singleProductInputEntity.getQuantity())
-                                .build()
-                        )
-                        .collect(Collectors.toList()))
+                                .map(singleProductInputEntity -> SingleProductInputDTO.builder()
+                                        .productId(singleProductInputEntity.getProductId())
+                                        .measure(singleProductInputEntity.getMeasure())
+                                        .quantity(singleProductInputEntity.getQuantity())
+                                        .build()
+                                )
+                                .collect(Collectors.toList()))
                 .build();
     }
 }

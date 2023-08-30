@@ -10,7 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -74,7 +77,7 @@ public class UserInputRepositoryImpl implements UserInputRepository {
 
         List<SingleProductInputDTO> productInputsList = userInputDTO.getProductInputList();
 
-        String inputId = UUID.randomUUID().toString();
+        String inputId = UUID.nameUUIDFromBytes((userInputDTO.getTimeOfInput() + "maksim").getBytes()).toString();
 
         entityManager.getTransaction().begin();
         List<SingleProductInputEntity> singleProductInputEntities = productInputsList.stream()
@@ -87,7 +90,7 @@ public class UserInputRepositoryImpl implements UserInputRepository {
                 .collect(Collectors.toList());
 
         UserInputEntity userInputEntity = entityManager.merge(UserInputEntity.builder()
-                .inputId(inputId)
+                .id(inputId)
                 .userName("maksim")
                 .date(userInputDTO.getTimeOfInput())
                 .products(singleProductInputEntities)
@@ -100,10 +103,17 @@ public class UserInputRepositoryImpl implements UserInputRepository {
     @Override
     public UserInputEntity getInputByDate(String date) {
         //TODO refactor
-        String userName = "Maksim";
-        return entityManager.createQuery("SELECT uie FROM UserInputEntity uie WHERE uie.date = :date AND uie.userName = :userName", UserInputEntity.class)
-                .setParameter("date", date)
-                .setParameter("userName", userName)
-                .getSingleResult();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        formatter = formatter.withLocale(Locale.getDefault());
+
+        String inputId = UUID.nameUUIDFromBytes((LocalDate.parse(date, formatter) + "maksim").getBytes()).toString();
+        String userName = "maksim";
+
+        return entityManager.find(UserInputEntity.class, inputId);
+//        return entityManager.createQuery("SELECT uie FROM UserInputEntity uie WHERE uie.date = :date AND uie.userName = :userName", UserInputEntity.class)
+//                .setParameter("date", date)
+//                .setParameter("userName", userName)
+//                .getSingleResult();
     }
 }

@@ -17,6 +17,7 @@ import java.time.LocalDate;
 public class SingleProductInputEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "input_id")

@@ -15,16 +15,18 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "user_input")
-@IdClass(UserInputId.class)
+//@IdClass(UserInputId.class)
 public class UserInputEntity {
+
     @Id
+    private String id;
+
     private LocalDate date;
-    @Id
     private String userName;
 
-    //TODO change to UUID
-    @Column(name = "input_id")
-    private String inputId;
+//    //TODO change to UUID
+//    @Column(name = "input_id")
+//    private String inputId;
 
     @OneToMany(mappedBy = "inputId", cascade = CascadeType.REMOVE) //здесь указывается поле обьекта а не базы данных
     private List<SingleProductInputEntity> products;
