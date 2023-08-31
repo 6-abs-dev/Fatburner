@@ -1,5 +1,6 @@
 package dev.abs.six.config;
 
+import dev.abs.six.config.exceptionMapping.GenericExceptionMapper;
 import dev.abs.six.repository.UserInputRepository;
 import dev.abs.six.repository.UserInputRepositoryImpl;
 import dev.abs.six.service.UserInputService;
@@ -12,6 +13,7 @@ public class FatburnerResourceConfig extends ResourceConfig {
 
     public FatburnerResourceConfig() {
         packages("dev.abs.six");
+        register(GenericExceptionMapper.class);
         register(new AbstractBinder() {
             @Override
             protected void configure() {
