@@ -116,4 +116,29 @@ public class UserInputRepositoryImpl implements UserInputRepository {
 //                .setParameter("userName", userName)
 //                .getSingleResult();
     }
+
+    @Override
+    public UserInputEntity updateInputProduct(UserInputDTO userInputDTO) {
+        entityManager.getTransaction().begin();
+        UserInputEntity userInputEntity = this.getInputByDate(userInputDTO.getTimeOfInput().toString());
+        List<SingleProductInputEntity> products = userInputEntity.getProducts();
+        List<SingleProductInputEntity> newSingleProductInputEntities = userInputDTO.getProductInputList().stream()
+                .map(productInputDTO -> entityManager.merge(SingleProductInputEntity.builder()
+                        .productId(productInputDTO.getProductId())
+                        .quantity(productInputDTO.getQuantity())
+                        .measure(productInputDTO.getMeasure())
+                        .inputId(userInputEntity.getId())
+                        .build()))
+                .collect(Collectors.toList());
+        products.addAll(newSingleProductInputEntities);
+        UserInputEntity userInputEntity1 = entityManager.merge(userInputEntity);
+        entityManager.getTransaction().commit();
+        return userInputEntity1;
+    }
+
+    @Override
+    public void deleteEntireInputForSpecificDay(String date) {
+        UserInputEntity userInputEntity = this.getInputByDate(date);
+        entityManager.remove(userInputEntity);
+    }
 }

@@ -72,7 +72,26 @@ public class UserInputService {
 
     public UserInputDTO putInputProduct(UserInputDTO userInputDTO) {
         UserInputEntity userInputEntity = userInputRepository.putInputProduct(userInputDTO);
+        return userUnputEntityToDTO(userInputEntity);
+    }
 
+    public UserInputDTO updateInputProduct(UserInputDTO userInputDTO) {
+        UserInputEntity userInputEntity = userInputRepository.updateInputProduct(userInputDTO);
+
+        return userUnputEntityToDTO(userInputEntity);
+    }
+
+    public UserInputDTO deleteSingleInput(UserInputDTO userInputDTO) {
+        //TODO
+        return null;
+    }
+
+
+    public void deleteEntireInputForSpecificDay(String date) {
+        userInputRepository.deleteEntireInputForSpecificDay(date);
+    }
+
+    private UserInputDTO userUnputEntityToDTO(UserInputEntity userInputEntity) {
         return UserInputDTO.builder()
                 .timeOfInput(userInputEntity.getDate())
                 .productInputList(
@@ -86,4 +105,6 @@ public class UserInputService {
                                 .collect(Collectors.toList()))
                 .build();
     }
+
+
 }

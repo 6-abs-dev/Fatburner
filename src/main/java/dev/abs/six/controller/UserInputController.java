@@ -27,10 +27,35 @@ public class UserInputController {
         return userInputService.getListForSpecificDay(date);
     }
 
-    @POST
+    @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public UserInputDTO putInputProduct(UserInputDTO userInputDTO) {
         return userInputService.putInputProduct(userInputDTO);
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public UserInputDTO updateInputProduct(UserInputDTO userInputDTO) {
+        return userInputService.updateInputProduct(userInputDTO);
+    }
+
+    @DELETE
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public UserInputDTO deleteSingleInput(UserInputDTO userInputDTO) {
+        //TODO make users support;
+        String userName = "maksim";
+        return userInputService.deleteSingleInput(userInputDTO);
+    }
+
+    @DELETE
+    @Path("/{date}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteEntireInputForSpecificDay(@PathParam("date") String date) {
+        //TODO make users support;
+        String userName = "maksim";
+        userInputService.deleteEntireInputForSpecificDay(date);
+        return "Deletion complete.";
     }
 
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class UserInputDTO {
 
     private LocalDate timeOfInput;
-
+    private String userName;
     private List<SingleProductInputDTO> productInputList;
 
 }
