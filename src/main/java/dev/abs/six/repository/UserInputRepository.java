@@ -23,5 +23,7 @@ public interface UserInputRepository {
 
     UserInputEntity updateInputProduct(UserInputDTO userInputDTO);
 
+    UserInputEntity deleteSingleInput(UserInputDTO userInputDTO);
+
     void deleteEntireInputForSpecificDay(String date);
 }

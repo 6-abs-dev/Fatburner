@@ -39,8 +39,8 @@ public class UserInputController {
         return userInputService.updateInputProduct(userInputDTO);
     }
 
-    @DELETE
-    @Path("/")
+    @POST
+    @Path("/delete")
     @Produces(MediaType.APPLICATION_JSON)
     public UserInputDTO deleteSingleInput(UserInputDTO userInputDTO) {
         //TODO make users support;

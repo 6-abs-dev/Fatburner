@@ -137,6 +137,25 @@ public class UserInputRepositoryImpl implements UserInputRepository {
     }
 
     @Override
+    public UserInputEntity deleteSingleInput(UserInputDTO userInputToDeleteDTO) {
+        entityManager.getTransaction().begin();
+        UserInputEntity userInputEntity = this.getInputByDate(userInputToDeleteDTO.getTimeOfInput().toString());
+
+        List<Long> singelInputsIds = userInputToDeleteDTO.getProductInputList().stream()
+                .map(SingleProductInputDTO::getSingleInputId)
+                .collect(Collectors.toList());
+
+        List<SingleProductInputEntity> singleProductInputEntities = userInputEntity.getProducts().stream()
+                .filter(singleProductInputEntity -> !singelInputsIds.contains(singleProductInputEntity.getSingleProductInputId()))
+                .collect(Collectors.toList());
+        userInputEntity.setProducts(singleProductInputEntities);
+
+        UserInputEntity userInputEntity1 = entityManager.merge(userInputEntity);
+        entityManager.getTransaction().commit();
+        return userInputEntity1;
+    }
+
+    @Override
     public void deleteEntireInputForSpecificDay(String date) {
         UserInputEntity userInputEntity = this.getInputByDate(date);
         entityManager.remove(userInputEntity);

@@ -58,16 +58,7 @@ public class UserInputService {
     public UserInputDTO getListForSpecificDay(String date) {
         UserInputEntity userInputEntity = userInputRepository.getInputByDate(date);
 
-        return UserInputDTO.builder()
-                .timeOfInput(userInputEntity.getDate())
-                .productInputList(userInputEntity.getProducts().stream()
-                        .map(singleProductInputEntity -> SingleProductInputDTO.builder()
-                                .productId(singleProductInputEntity.getProductId())
-                                .measure(singleProductInputEntity.getMeasure())
-                                .quantity(singleProductInputEntity.getQuantity())
-                                .build())
-                        .collect(Collectors.toList()))
-                .build();
+        return userUnputEntityToDTO(userInputEntity);
     }
 
     public UserInputDTO putInputProduct(UserInputDTO userInputDTO) {
@@ -82,8 +73,9 @@ public class UserInputService {
     }
 
     public UserInputDTO deleteSingleInput(UserInputDTO userInputDTO) {
-        //TODO
-        return null;
+        UserInputEntity userInputEntity = userInputRepository.deleteSingleInput(userInputDTO);
+
+        return userUnputEntityToDTO(userInputEntity);
     }
 
 
@@ -97,6 +89,7 @@ public class UserInputService {
                 .productInputList(
                         userInputEntity.getProducts().stream()
                                 .map(singleProductInputEntity -> SingleProductInputDTO.builder()
+                                        .singleInputId(singleProductInputEntity.getSingleProductInputId())
                                         .productId(singleProductInputEntity.getProductId())
                                         .measure(singleProductInputEntity.getMeasure())
                                         .quantity(singleProductInputEntity.getQuantity())

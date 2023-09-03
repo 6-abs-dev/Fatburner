@@ -18,7 +18,7 @@ public class SingleProductInputEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long singleProductInputId;
 
     @Column(name = "input_id")
     private String inputId;
