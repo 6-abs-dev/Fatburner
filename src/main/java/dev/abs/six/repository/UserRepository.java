@@ -6,7 +6,7 @@ import dev.abs.six.repository.entity.UserEntity;
 public interface UserRepository {
 
     UserEntity createNewUser(UserDTO userDTO);
-    UserEntity getUserById(String userId);
+    UserEntity getUserByLogin(String login);
     UserEntity updateUser(UserDTO userDTO);
-    UserEntity deleteUser(String userId);
+    void deleteUser(String login);
 }
