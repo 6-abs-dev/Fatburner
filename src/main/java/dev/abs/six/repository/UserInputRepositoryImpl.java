@@ -8,7 +8,9 @@ import dev.abs.six.repository.entity.SingleProductInputEntity;
 import dev.abs.six.repository.entity.UserInputEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,15 +20,13 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
+
 public class UserInputRepositoryImpl implements UserInputRepository {
-
+    @Inject
     EntityManager entityManager;
-
-    public UserInputRepositoryImpl() {
-        this.entityManager = Persistence.createEntityManagerFactory("fatburner").createEntityManager();
-    }
 
     @Override
     public ProductEntity getProductById(Long id) {
