@@ -8,10 +8,15 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 public class FatburnerResourceConfig extends ResourceConfig {
 
     public FatburnerResourceConfig() {
+
+//        EntityManager entityManager = Persistence.createEntityManagerFactory("fatburner").createEntityManager();
+
         packages("dev.abs.six");
         register(GenericExceptionMapper.class);
         register(new AbstractBinder() {
@@ -19,6 +24,8 @@ public class FatburnerResourceConfig extends ResourceConfig {
             protected void configure() {
                 bind(UserInputService.class).to(UserInputService.class).in(Singleton.class);
                 bind(UserInputRepositoryImpl.class).to(UserInputRepository.class).in(Singleton.class);
+                bind(UserInputRepositoryImpl.class).to(UserInputRepository.class).in(Singleton.class);
+//                bind(entityManager).to(EntityManager.class);
             }
         });
     }
