@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +25,12 @@ public class UserService {
 
     public UserDTO getUserByLogin(String login) {
         return userEntityToUserDTO(userRepository.getUserByLogin(login));
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return userRepository.getAllUsers().stream()
+                .map(this::userEntityToUserDTO)
+                .collect(Collectors.toList());
     }
 
     public UserDTO updateUser(UserDTO userDTO) {

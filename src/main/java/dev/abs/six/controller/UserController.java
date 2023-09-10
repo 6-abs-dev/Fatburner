@@ -6,6 +6,7 @@ import dev.abs.six.service.UserService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/fatburner/user")
 public class UserController {
@@ -18,6 +19,12 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     public UserDTO getUserByLogin(@PathParam("id") String id) {
         return userService.getUserByLogin(id);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @PUT

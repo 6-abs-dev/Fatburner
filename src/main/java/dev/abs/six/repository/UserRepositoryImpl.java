@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,6 +38,12 @@ public class UserRepositoryImpl implements UserRepository {
         return entityManager.createQuery("SELECT u FROM UserEntity u where u.login = :login", UserEntity.class)
                 .setParameter("login", login)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<UserEntity> getAllUsers() {
+        return entityManager.createQuery("SELECT u FROM UserEntity u", UserEntity.class)
+                .getResultList();
     }
 
     @Override

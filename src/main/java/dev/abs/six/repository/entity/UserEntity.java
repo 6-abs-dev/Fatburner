@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,8 +20,10 @@ public class UserEntity {
 
     @Id
     private String login;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "second_name")
     private String secondName;
-    private String weight;
-    private String height;
+    private Double weight;
+    private Double height;
 }
